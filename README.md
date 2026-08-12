@@ -119,38 +119,38 @@ CREATE DATABASE IF NOT EXISTS diet_db
 
 ### 2. 配置应用
 
-复制并编辑本地配置文件（该文件已在 `.gitignore` 中排除）：
+项目使用 Spring Boot profile 机制分离敏感配置：
+
+- `application.yml` — 非敏感公共配置，可安全提交
+- `application-local.yml` — 敏感凭据，**已加入 `.gitignore`，不会推送到远程**
+
+创建本地配置文件并填入真实凭据：
 
 ```bash
 cp src/main/resources/application.yml src/main/resources/application-local.yml
 ```
 
-修改 `application-local.yml` 中的数据库连接信息和 DashScope API Key：
+编辑 `application-local.yml`，覆盖敏感字段：
 
 ```yaml
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/diet_db?...
-    username: your_username
-    password: your_password
+    password: your_db_password
 
 agentscope:
   dashscope:
     api-key: your-dashscope-api-key
-
-diet:
-  llm:
-    main-model: qwen-max      # 推荐应答使用，需较强推理能力
-    light-model: qwen-turbo   # 意图识别/澄清使用，降低延迟
 ```
 
 ### 3. 启动应用
 
+**必须激活 `local` profile** 以加载本地凭据，否则启动时数据库和 API Key 配置为空：
+
 ```bash
-# 指定本地 profile 启动
+# 开发模式直接运行
 mvn spring-boot:run -Dspring-boot.run.profiles=local
 
-# 或先打包再运行
+# 或打包后运行
 mvn clean package -DskipTests
 java -jar target/diet-agent-1.0-SNAPSHOT.jar --spring.profiles.active=local
 ```

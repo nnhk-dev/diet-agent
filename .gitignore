@@ -1,0 +1,50 @@
+### Maven 构建产物 ###
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### IDE 配置（每人IDE不同，不应提交） ###
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+# VS Code
+.vscode/
+
+### 操作系统临时文件 ###
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+### 敏感信息（含 API Key，绝对不能提交） ###
+src/main/resources/application-local.yml
+src/main/resources/application-dev.yml
+*.env
+*.env.local
+
+### 日志文件 ###
+*.log
+logs/
+
+### 个人学习笔记 ###
+study-log/
+
+### 临时文件 ###
+*.tmp
+*.bak
+*.swp
+*~
